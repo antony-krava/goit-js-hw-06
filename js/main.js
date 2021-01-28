@@ -2,7 +2,8 @@ import users from "./users.js"
 
 // Задание 1 - Получить массив имен всех пользователей (поле name).
 const getUserNames = users => {
-  // твой код
+  const usersNames = users.map(user => user.name);
+  return usersNames;
 };
 
 console.log(getUserNames(users));
@@ -10,28 +11,32 @@ console.log(getUserNames(users));
 
 // Задание 2 - Получить массив объектов пользователей по цвету глаз (поле eyeColor).
 const getUsersWithEyeColor = (users, color) => {
-  // твой код
+  const usersEyeColors = users.filter(user => user.eyeColor === color);
+  return usersEyeColors;
 };
 
 console.log(getUsersWithEyeColor(users, 'blue')); // [объект Moore Hensley, объект Sharlene Bush, объект Carey Barr]
 
 // Задание 3 - Получить массив имен пользователей по полу (поле gender).
 const getUsersWithGender = (users, gender) => {
-  // твой код
+  const usersGender = users.filter(user => user.gender === gender).map(user => user.name);
+  return usersGender;
 };
 
 console.log(getUsersWithGender(users, 'male')); // [ 'Moore Hensley', 'Ross Vazquez', 'Carey Barr', 'Blackburn Dotson' ]
 
 // Задание 4 - Получить массив только неактивных пользователей (поле isActive).
 const getInactiveUsers = users => {
-  // твой код
+  const activeUsers = users.filter(user => !user.isActive);
+  return activeUsers;
 };
 
 console.log(getInactiveUsers(users)); // [объект Moore Hensley, объект Ross Vazquez, объект Blackburn Dotson]
 
 // Задание 5 - Получить пользоваля (не массив) по email (поле email, он уникальный).
 const getUserWithEmail = (users, email) => {
-  // твой код
+  const findUserEmail = users.find(user => user.email === email);
+  return findUserEmail;
 };
 
 console.log(getUserWithEmail(users, 'shereeanthony@kog.com')); // {объект пользователя Sheree Anthony}
@@ -39,7 +44,8 @@ console.log(getUserWithEmail(users, 'elmahead@omatom.com')); // {объект п
 
 // Задание 6 - Получить массив пользователей попадающих в возрастную категорию от min до max лет (поле age).
 const getUsersWithAge = (users, min, max) => {
-  // твой код
+  const findUsersAge = users.filter(user => user.age > min && user.age < max);
+  return findUsersAge;
 };
 
 console.log(getUsersWithAge(users, 20, 30)); // [объект Ross Vazquez, объект Elma Head, объект Carey Barr]
@@ -49,14 +55,16 @@ console.log(getUsersWithAge(users, 30, 40));
 
 // Задание 7 - Получить общую сумму баланса (поле balance) всех пользователей.
 const calculateTotalBalance = users => {
-  // твой код
+  const usersBalance = users.reduce((balance, user) => balance + user.balance, 0);
+  return usersBalance;
 };
 
 console.log(calculateTotalBalance(users)); // 20916
 
 // Задание 8 - Массив имен всех пользователей у которых есть друг с указанным именем.
 const getUsersWithFriend = (users, friendName) => {
-  // твой код
+  const usersWithFriend = users.filter(user => user.friends.includes(friendName)).map(user => user.name);
+  return usersWithFriend;
 };
 
 console.log(getUsersWithFriend(users, 'Briana Decker')); // [ 'Sharlene Bush', 'Sheree Anthony' ]
@@ -64,7 +72,8 @@ console.log(getUsersWithFriend(users, 'Goldie Gentry')); // [ 'Elma Head', 'Sher
 
 // Задание 9 - Массив имен (поле name) людей, отсортированных в зависимости от количества их друзей (поле friends)
 const getNamesSortedByFriendsCount = users => {
-  // твой код
+  const sorteredUsersByFriends = users.sort((prev, next) => prev.friends.length - next.friends.length).map(user => user.name);
+  return sorteredUsersByFriends;
 };
 
 console.log(getNamesSortedByFriendsCount(users));
@@ -72,7 +81,13 @@ console.log(getNamesSortedByFriendsCount(users));
 
 // Задание 10 - Получить массив всех умений всех пользователей (поле skills), при этом не должно быть повторяющихся умений и они должны быть отсортированы в алфавитном порядке.
 const getSortedUniqueSkills = users => {
-  // твой код
+  const sorteredUsersSkills = users.flatMap(user => user.skills).filter((item, index, arr) => {
+    return arr.indexOf(item) === index;
+  }).sort((prev, next) => {
+   return next < prev ? 1 : -1;
+  });
+
+  return sorteredUsersSkills;
 };
 
 console.log(getSortedUniqueSkills(users));
